@@ -1,0 +1,14 @@
+# This is Git's per-user configuration file.
+[pull]
+	ff = only
+[alias]
+	cs = commit -v -S
+	s = status
+	aa = !echo not allowed
+	a = add
+	g = fuzzy status
+	p = push
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
