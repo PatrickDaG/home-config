@@ -2,15 +2,30 @@
 
 # REQUIRES (execute as root):
 # umask 022
-# git clone --depth=1 https://github.com/romkatv/powerlevel10k /usr/share/zsh/repos/romkatv/powerlevel10k
-# git clone https://github.com/Aloxaf/fzf-tab /usr/share/zsh/repos/Aloxaf/fzf-tab
-# git clone https://github.com/zdharma/fast-syntax-highlighting /usr/share/zsh/repos/zdharma/fast-syntax-highlighting
 
+# powerlevel10k
 source /usr/share/zsh/repos/romkatv/powerlevel10k/powerlevel10k.zsh-theme
 source /usr/share/zsh/repos/romkatv/powerlevel10k/config/p10k-lean-8colors.zsh
 
+# zsh histdb
+typeset -g HISTDB_FILE="$HOME/.zsh_history.db"
+source /usr/share/zsh/repos/larkery/zsh-histdb/sqlite-history.zsh
+
 # Use emacs-like key bindings by default:
 bindkey -e
+
+# Autoloading
+autoload colors && colors
+autoload add-zsh-hook
+autoload zmv
+autoload zed
+if autoload history-search-end; then
+	zle -N history-beginning-search-backward-end history-search-end
+	zle -N history-beginning-search-forward-end  history-search-end
+fi
+
+# fzf keybindings
+source /usr/share/fzf/key-bindings.zsh
 
 function bind2maps() {
 	local i sequence widget
@@ -91,13 +106,6 @@ bind2maps emacs viins       -- PageUp   history-beginning-search-backward-end
 bind2maps emacs viins       -- PageDown history-beginning-search-forward-end
 bind2maps emacs viins       -- -s ' ' magic-space
 
-for seq wid in '^r' history-incremental-pattern-search-backward \
-	'^s' history-incremental-pattern-search-forward
-do
-	bind2maps emacs viins vicmd -- -s $seq $wid
-done
-builtin unset -v seq wid
-
 # Use Ctrl-left-arrow and Ctrl-right-arrow for jumping to word-beginnings on
 # the command line.
 # kitty: Shift-Left/Right
@@ -110,7 +118,6 @@ bind2maps emacs viins vicmd -- -s '\e[1;3D' backward-word
 bind2maps emacs viins vicmd -- -s '\e[3;5~' kill-line
 # Key bindings
 bind2maps emacs viins vicmd -- -s '^H' backward-kill-line
-bind2maps emacs viins vicmd -- -s '^R' history-incremental-search-backward
 bind2maps emacs viins vicmd -- -s '^P' expand-or-complete-prefix
 
 # Enable partial search using up and down keys for completion
@@ -119,15 +126,6 @@ bind2maps emacs viins vicmd -- -s '^[[B' history-beginning-search-forward-end
 bind2maps emacs viins vicmd -- -s '\eOA' history-beginning-search-backward-end
 bind2maps emacs viins vicmd -- -s '\eOB' history-beginning-search-forward-end
 
-# Autoloading
-autoload colors && colors
-autoload add-zsh-hook
-autoload zmv
-autoload zed
-if autoload history-search-end; then
-	zle -N history-beginning-search-backward-end history-search-end
-	zle -N history-beginning-search-forward-end  history-search-end
-fi
 
 typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
 typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
@@ -365,7 +363,7 @@ compdef _hosts upgrade
 
 # Load external plugins
 source /usr/share/zsh/repos/Aloxaf/fzf-tab/fzf-tab.plugin.zsh
-source /usr/share/zsh/repos/zdharma/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source /usr/share/zsh/repos/zdharma-continuum/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 # History settings
 HISTFILE=~/.zsh_history
