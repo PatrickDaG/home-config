@@ -1,0 +1,32 @@
+
+Host prakt
+	HostName praksrv.sec.in.tum.de
+	User team206
+
+Host nas
+	HostName 192.168.178.76
+	User root
+
+Host jumpnas
+	HostName 192.168.178.76
+	User root
+	ProxyJump elisabeth
+
+Host valhalla
+	HostName valhalla.fs.tum.de
+	User grossmann
+
+Host elisabeth
+	HostName lel.lol
+	User root
+
+Host elisabethlocal
+	HostName 192.168.178.2
+	User root
+
+Host elisabethlocalprivate
+	HostName 192.168.178.2
+	User patrick
+
+Host *
+	AddKeysToAgent yes
