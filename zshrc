@@ -468,6 +468,7 @@ alias mv="mv -vi"
 alias rm="rm -I"
 alias chmod="chmod -c --preserve-root"
 alias chown="chown -c --preserve-root"
+alias -s {md,txt,cpp,hpp,h,c}=vim
 
 alias ip="ip --color"
 alias tmux="tmux -2"
@@ -512,18 +513,12 @@ function ex () {
 
 # Aliases when X is running
 if xset q &>/dev/null; then
-	alias vi="nvim-qt &>/dev/null"
-	alias vim="nvim-qt &>/dev/null"
-
 	alias zf="zathura --fork"  #pdf viewer
-else
-	alias vim="nvim"
 fi
+alias vi="nvim"
+alias vim="nvim"
 
 # Set umask
 umask 077
-# TODO gpg
-# TODO fzf reverse search
-# TODO look at powerlevel9k and fzf tab better and chanqe config
 
 alias luamake=/home/patrick/.local/share/nvim/lua-language-server/3rd/luamake/luamake
