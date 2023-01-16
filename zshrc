@@ -11,6 +11,9 @@ source /usr/share/zsh/repos/romkatv/powerlevel10k/config/p10k-lean-8colors.zsh
 typeset -g HISTDB_FILE="$HOME/.zsh_history.db"
 source /usr/share/zsh/repos/larkery/zsh-histdb/sqlite-history.zsh
 
+# zsh histdb-skim
+source /usr/share/zsh/repos/m42e/zsh-histdb-skim/zsh-histdb-skim.zsh
+
 # Use emacs-like key bindings by default:
 bindkey -e
 
